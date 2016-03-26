@@ -51,6 +51,20 @@
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [UIColor blackColor].CGColor;
     
+    
+    //Animaciones para girar las imagenes
+    [UIView animateWithDuration:2 delay:0 options:( UIViewAnimationOptionCurveEaseInOut |
+                                                   UIViewAnimationOptionAutoreverse |
+                                                   UIViewAnimationOptionAllowUserInteraction) animations:^{
+        
+        cell.appImage.transform = CGAffineTransformRotate(cell.appImage.transform, M_PI);
+    } completion:^(BOOL finished){}];
+    [UIView animateWithDuration:2 delay:0 options:( UIViewAnimationOptionCurveEaseInOut |
+                                                   UIViewAnimationOptionAutoreverse |
+                                                   UIViewAnimationOptionAllowUserInteraction) animations:^{
+        
+        cell.appImage.transform = CGAffineTransformRotate(cell.appImage.transform, M_PI);
+    } completion:^(BOOL finished){}];
     return cell;
 }
 

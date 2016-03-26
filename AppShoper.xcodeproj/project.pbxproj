@@ -10,6 +10,8 @@
 		0D90A92D1C9A4D67000A3CE1 /* HandleRemoteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D90A92C1C9A4D67000A3CE1 /* HandleRemoteData.m */; };
 		0D90A9331C9A5D8D000A3CE1 /* App.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D90A9321C9A5D8D000A3CE1 /* App.m */; };
 		0D90A9361C9A5E27000A3CE1 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D90A9351C9A5E27000A3CE1 /* AppViewController.m */; };
+		0D9413F51CA385310075358F /* CustomFlipSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9413F41CA385310075358F /* CustomFlipSegue.m */; };
+		0DA1991C1CA24579007E55D8 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DA1991B1CA24579007E55D8 /* Main_iPhone.storyboard */; };
 		0DA2AA3F1C9F5DB600F15266 /* AppEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2AA3C1C9F5DB600F15266 /* AppEntity.m */; };
 		0DA2AA401C9F5DB600F15266 /* AppEntity+local.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2AA3E1C9F5DB600F15266 /* AppEntity+local.m */; };
 		0DE650AD1C9E39D200B0ADF1 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE650AC1C9E39D200B0ADF1 /* CategoryViewController.m */; };
@@ -17,7 +19,6 @@
 		0DE8723C1C9A462500A67095 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8723B1C9A462500A67095 /* AppDelegate.m */; };
 		0DE8723F1C9A462500A67095 /* AppShoper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8723D1C9A462500A67095 /* AppShoper.xcdatamodeld */; };
 		0DE872421C9A462500A67095 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE872411C9A462500A67095 /* DetailViewController.m */; };
-		0DE872451C9A462500A67095 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DE872431C9A462500A67095 /* Main_iPhone.storyboard */; };
 		0DE872471C9A462500A67095 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DE872461C9A462500A67095 /* Images.xcassets */; };
 		0DE8724A1C9A462500A67095 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DE872481C9A462500A67095 /* LaunchScreen.xib */; };
 		0DE872561C9A462500A67095 /* AppShoperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE872551C9A462500A67095 /* AppShoperTests.m */; };
@@ -37,12 +38,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D9094D41CA37B7A004389AF /* AppShoper-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppShoper-Bridging-Header.h"; sourceTree = "<group>"; };
 		0D90A92B1C9A4D67000A3CE1 /* HandleRemoteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleRemoteData.h; sourceTree = "<group>"; };
 		0D90A92C1C9A4D67000A3CE1 /* HandleRemoteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleRemoteData.m; sourceTree = "<group>"; };
 		0D90A9311C9A5D8D000A3CE1 /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		0D90A9321C9A5D8D000A3CE1 /* App.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = App.m; sourceTree = "<group>"; };
 		0D90A9341C9A5E27000A3CE1 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
 		0D90A9351C9A5E27000A3CE1 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
+		0D9413F31CA385310075358F /* CustomFlipSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFlipSegue.h; sourceTree = "<group>"; };
+		0D9413F41CA385310075358F /* CustomFlipSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFlipSegue.m; sourceTree = "<group>"; };
+		0DA1991B1CA24579007E55D8 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		0DA2AA3B1C9F5DB600F15266 /* AppEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppEntity.h; sourceTree = "<group>"; };
 		0DA2AA3C1C9F5DB600F15266 /* AppEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppEntity.m; sourceTree = "<group>"; };
 		0DA2AA3D1C9F5DB600F15266 /* AppEntity+local.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppEntity+local.h"; sourceTree = "<group>"; };
@@ -57,7 +62,6 @@
 		0DE8723E1C9A462500A67095 /* AppShoper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppShoper.xcdatamodel; sourceTree = "<group>"; };
 		0DE872401C9A462500A67095 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		0DE872411C9A462500A67095 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		0DE872441C9A462500A67095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		0DE872461C9A462500A67095 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0DE872491C9A462500A67095 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0DE8724F1C9A462500A67095 /* AppShoperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppShoperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,9 +92,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DE157061CA4C78C000D2CD3 /* CustomSegues */ = {
+			isa = PBXGroup;
+			children = (
+				0D9413F31CA385310075358F /* CustomFlipSegue.h */,
+				0D9413F41CA385310075358F /* CustomFlipSegue.m */,
+			);
+			name = CustomSegues;
+			sourceTree = "<group>";
+		};
 		0DE650AE1C9E4C8800B0ADF1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0DE157061CA4C78C000D2CD3 /* CustomSegues */,
 				0DFDBE891CA03CAA009EBFC1 /* GridAppViewController.h */,
 				0DFDBE8A1CA03CAA009EBFC1 /* GridAppViewController.m */,
 				0DE872401C9A462500A67095 /* DetailViewController.h */,
@@ -99,6 +113,7 @@
 				0DE650AC1C9E39D200B0ADF1 /* CategoryViewController.m */,
 				0D90A9341C9A5E27000A3CE1 /* AppViewController.h */,
 				0D90A9351C9A5E27000A3CE1 /* AppViewController.m */,
+				0D9094D41CA37B7A004389AF /* AppShoper-Bridging-Header.h */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -144,7 +159,7 @@
 				0D90A92C1C9A4D67000A3CE1 /* HandleRemoteData.m */,
 				0DE8723A1C9A462500A67095 /* AppDelegate.h */,
 				0DE8723B1C9A462500A67095 /* AppDelegate.m */,
-				0DE872431C9A462500A67095 /* Main_iPhone.storyboard */,
+				0DA1991B1CA24579007E55D8 /* Main_iPhone.storyboard */,
 				0DFDBE841CA01ADC009EBFC1 /* Main_iPad.storyboard */,
 				0DFDBE861CA02D11009EBFC1 /* CustomGridCell.h */,
 				0DFDBE871CA02D11009EBFC1 /* CustomGridCell.m */,
@@ -261,8 +276,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DE872451C9A462500A67095 /* Main_iPhone.storyboard in Resources */,
 				0DFDBE851CA01ADC009EBFC1 /* Main_iPad.storyboard in Resources */,
+				0DA1991C1CA24579007E55D8 /* Main_iPhone.storyboard in Resources */,
 				0DE8724A1C9A462500A67095 /* LaunchScreen.xib in Resources */,
 				0DE872471C9A462500A67095 /* Images.xcassets in Resources */,
 			);
@@ -291,6 +306,7 @@
 				0DFDBE881CA02D11009EBFC1 /* CustomGridCell.m in Sources */,
 				0DE8723C1C9A462500A67095 /* AppDelegate.m in Sources */,
 				0D90A92D1C9A4D67000A3CE1 /* HandleRemoteData.m in Sources */,
+				0D9413F51CA385310075358F /* CustomFlipSegue.m in Sources */,
 				0DE872421C9A462500A67095 /* DetailViewController.m in Sources */,
 				0DE872391C9A462500A67095 /* main.m in Sources */,
 				0DA2AA3F1C9F5DB600F15266 /* AppEntity.m in Sources */,
@@ -316,14 +332,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0DE872431C9A462500A67095 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0DE872441C9A462500A67095 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
 		0DE872481C9A462500A67095 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -415,9 +423,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = AppShoper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AppShoper/AppShoper-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -426,9 +437,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = AppShoper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AppShoper/AppShoper-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

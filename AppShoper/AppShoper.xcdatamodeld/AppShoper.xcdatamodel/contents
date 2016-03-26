@@ -7,10 +7,11 @@
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="releaseDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="165"/>
+        <element name="AppEntity" positionX="-54" positionY="-9" width="128" height="180"/>
     </elements>
 </model>

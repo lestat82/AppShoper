@@ -18,18 +18,19 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.appDetailImage.image = nil;
     self.appDetailImage.image = self.app.bigImage;
+    
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.3];
-    
     //self.appDetailImage.frame = CGRectMake(20,72, 158, 105);
-    self.appDetailImage.frame = CGRectMake(20,72, 15, 15);
+    //self.appDetailImage.frame = CGRectMake(20,72, 15, 15);
     
     [UIView commitAnimations];
     self.title = self.app.name;
     self.appSummary.text = self.app.summary;
     
-    
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -38,7 +39,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table Methods
+#pragma mark - TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -47,7 +48,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -69,9 +70,9 @@
     else     if (indexPath.row==5) {
         value  = [NSString stringWithFormat:@"Artist: %@",self.app.artist];
     }
-    /*else     if (indexPath.row==6) {
-        value  = [NSString stringWithFormat:@"Summary: %@",self.app.summary];
-    }*/
+    else     if (indexPath.row==6) {
+        value  = [NSString stringWithFormat:@"ReleaseDate: %@",self.app.releaseDate];
+    }
     //cell.alpha = 0.2;
     //cell.textLabel.alpha = 1;
     cell.contentView.backgroundColor = [UIColor clearColor];

@@ -20,5 +20,6 @@
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * identifier;
+@property (nonatomic, retain) NSDate * releaseDate;
 
 @end

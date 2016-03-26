@@ -25,12 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Configuracion y cargue del contexto a usar
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *documentsDirectory = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
     
     NSString *documentName = @"AppShoper";
     NSURL *url = [documentsDirectory URLByAppendingPathComponent:documentName];
     UIManagedDocument *document = [[UIManagedDocument alloc] initWithFileURL:url];
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
         [document openWithCompletionHandler:^(BOOL success) {
             if(!success)
@@ -65,120 +67,171 @@
     return _appList;
 }
 
+/*
+ Metodo que consulta de internet el listado de aplicaciones:
+    1. Si el listado esta disponible
+ construye el listado de categorias a deplegar en la primera vista, y adicionalmente construye
+ el listado de aplicaciones y las almacena localmente
+ 
+    2. Si el listado no esta disponible intenta cargar el listado que se tenga almacenado localmente
+ */
 -(NSMutableArray *)categoryList
 {
     if(!_categoryList)
     {
         _categoryList = [[NSMutableArray alloc] init];
         NSMutableDictionary *results = [HandleRemoteData  requestData];
-        App *app;
-        NSString *name;
-        NSString *identifier;
-        NSString *description;
-        NSString *price;
-        NSString *category;
-        NSString *artist;
-        NSString *title;
-        NSURL *url;
-        NSDate *releaseDate;
-        
-        NSString *appImageName;
-        UIImage *appSmallImage;
-        UIImage *appMediumImage;
-        UIImage *appBigImage;
-        
         if(results)
         {
-            NSMutableDictionary *returnedData = [results objectForKey:@"feed"];
-            NSArray *returnedAppList = [returnedData objectForKey:@"entry"];
-            NSArray *imageList;
-            NSMutableDictionary *jsonName;
-            NSMutableDictionary *jsonDescription;
-            NSMutableDictionary *jsonImage;
-            NSMutableDictionary *jsonPrice;
-            NSMutableDictionary *jsonCategory;
-            NSMutableDictionary *jsonURL;
-            NSMutableDictionary *jsonArtist;
-            NSMutableDictionary *jsonTitle;
-            NSMutableDictionary *jsonReleaseDate;
-            NSMutableDictionary *jsonIdentifier;
-            
-            NSNumberFormatter *nf = [[NSNumberFormatter alloc]init];
-            nf.numberStyle = NSNumberFormatterDecimalStyle;
-            
-            for (NSMutableDictionary *returnedApp in returnedAppList) {
-                jsonName = [returnedApp objectForKey:@"im:name"];
-                jsonDescription = [returnedApp objectForKey:@"summary"];
-                jsonPrice = [[returnedApp objectForKey:@"im:price"] objectForKey:@"attributes"];
-                jsonCategory = [[returnedApp objectForKey:@"category"] objectForKey:@"attributes"];
-                jsonURL = [[returnedApp objectForKey:@"link"] objectForKey:@"attributes"];
-                jsonArtist = [returnedApp objectForKey:@"im:artist"];
-                jsonTitle = [returnedApp objectForKey:@"title"];
-                jsonIdentifier = [returnedApp objectForKey:@"id"];
-                
-                imageList = [returnedApp objectForKey:@"im:image"];
-                jsonImage = imageList[0];
-                
-                name = [jsonName objectForKey:@"label"];
-                description = [jsonDescription objectForKey:@"label"];
-                price = [NSString stringWithFormat:@"%@ %@",[jsonPrice objectForKey:@"amount"],[jsonPrice objectForKey:@"currency"]];
-                category = [jsonCategory objectForKey:@"label"];
-                url = [NSURL URLWithString:[jsonURL objectForKey:@"href"]];
-                artist = [jsonArtist objectForKey:@"label"];
-                title = [jsonTitle objectForKey:@"label"];
-                identifier = [[jsonIdentifier objectForKey:@"attributes"] objectForKey:@"im:id"];
-                
-                appImageName = [imageList[0] objectForKey:@"label"];
-                appSmallImage =[HandleRemoteData getImageFromURL:appImageName];
-                [HandleRemoteData saveImage:appSmallImage withFileName:[NSString stringWithFormat:@"small-%@",identifier]];
-                
-                appImageName = [imageList[1] objectForKey:@"label"];
-                appMediumImage =[HandleRemoteData getImageFromURL:appImageName];
-                [HandleRemoteData saveImage:appBigImage withFileName:[NSString stringWithFormat:@"medium-%@",identifier]];
-                
-                appImageName = [imageList[2] objectForKey:@"label"];
-                appBigImage =[HandleRemoteData getImageFromURL:appImageName];
-                [HandleRemoteData saveImage:appBigImage withFileName:[NSString stringWithFormat:@"big-%@",identifier]];
-                
-                app = [[App alloc] initWithName:name identifier:[nf numberFromString: identifier] category:category price:price link:url artist:artist title:title summary:description releaseDate:releaseDate smallImage:appSmallImage mediumImage:appMediumImage bigImage:appBigImage];
-                
-                [self addDifferent:_categoryList newValueForCheck:category];
-                [self.appList addObject:app];
-            }
+            [self loadInternetInfo:results];
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Aviso" message:@"Error de conexion con el servidor, se cargara el listado almacenado localmente" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Aviso" message:@"Error de conexion, se cargara la informacion almacenada localmente" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
             [alert show];
-            
-            NSArray *savedApps = [AppEntity listOfLocalApps:self.context];
-            for (AppEntity *savedApp in savedApps) {
-            
-                name = savedApp.name;
-                description = savedApp.summary;
-                price = savedApp.price;
-                category = savedApp.category;
-                artist = savedApp.artist;
-                title = savedApp.title;
-                url = [NSURL URLWithString:savedApp.link];
-        
-                appSmallImage = [HandleRemoteData loadImage:[NSString stringWithFormat:@"small-%@",savedApp.identifier]];
-                appMediumImage = [HandleRemoteData loadImage:[NSString stringWithFormat:@"medium-%@",savedApp.identifier]];
-                appBigImage = [HandleRemoteData loadImage:[NSString stringWithFormat:@"big-%@",savedApp.identifier]];
-                
-                app = [[App alloc] initWithName:name identifier:savedApp.identifier category:category price:price link:url artist:artist title:title summary:description releaseDate:releaseDate smallImage:appSmallImage mediumImage:appMediumImage bigImage:appBigImage];
-                
-                
-                [self.appList addObject:app];
-                [self addDifferent:_categoryList newValueForCheck:category];
-            }
-            
+            [self loadLocalInfo];
         }
     }
     return _categoryList;
 }
 
-#pragma mark - Table Methods
+-(void)loadInternetInfo:(NSMutableDictionary *)results
+{
+    App *app;
+    NSString *name;
+    NSString *identifier;
+    NSString *description;
+    NSString *price;
+    NSString *category;
+    NSString *artist;
+    NSString *title;
+    NSURL *url;
+    NSDate *releaseDate;
+    
+    NSString *appImageName;
+    UIImage *appSmallImage;
+    UIImage *appMediumImage;
+    UIImage *appBigImage;
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    releaseDate = [[NSDate alloc] init];
+    
+    NSMutableDictionary *returnedData = [results objectForKey:@"feed"];
+    NSArray *returnedAppList = [returnedData objectForKey:@"entry"];
+    NSArray *imageList;
+    NSMutableDictionary *jsonName;
+    NSMutableDictionary *jsonDescription;
+    NSMutableDictionary *jsonImage;
+    NSMutableDictionary *jsonPrice;
+    NSMutableDictionary *jsonCategory;
+    NSMutableDictionary *jsonURL;
+    NSMutableDictionary *jsonArtist;
+    NSMutableDictionary *jsonTitle;
+    NSMutableDictionary *jsonReleaseDate;
+    NSMutableDictionary *jsonIdentifier;
+    
+    NSString *rawDate;
+    NSRange range;
+    NSString *time;
+    NSString *date;
+    
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc]init];
+    nf.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    for (NSMutableDictionary *returnedApp in returnedAppList) {
+        jsonName = [returnedApp objectForKey:@"im:name"];
+        jsonDescription = [returnedApp objectForKey:@"summary"];
+        jsonPrice = [[returnedApp objectForKey:@"im:price"] objectForKey:@"attributes"];
+        jsonCategory = [[returnedApp objectForKey:@"category"] objectForKey:@"attributes"];
+        jsonURL = [[returnedApp objectForKey:@"link"] objectForKey:@"attributes"];
+        jsonArtist = [returnedApp objectForKey:@"im:artist"];
+        jsonTitle = [returnedApp objectForKey:@"title"];
+        jsonIdentifier = [returnedApp objectForKey:@"id"];
+        jsonReleaseDate = [returnedApp objectForKey:@"im:releaseDate"];
+        
+        imageList = [returnedApp objectForKey:@"im:image"];
+        jsonImage = imageList[0];
+        
+        name = [jsonName objectForKey:@"label"];
+        description = [jsonDescription objectForKey:@"label"];
+        price = [NSString stringWithFormat:@"%@ %@",[jsonPrice objectForKey:@"amount"],[jsonPrice objectForKey:@"currency"]];
+        category = [jsonCategory objectForKey:@"label"];
+        url = [NSURL URLWithString:[jsonURL objectForKey:@"href"]];
+        artist = [jsonArtist objectForKey:@"label"];
+        title = [jsonTitle objectForKey:@"label"];
+        identifier = [[jsonIdentifier objectForKey:@"attributes"] objectForKey:@"im:id"];
+        rawDate = [jsonReleaseDate objectForKey:@"label"];
+        range = [rawDate rangeOfString:@"T"];
+        time = [rawDate substringFromIndex:range.location+1];
+        range = [time rangeOfString:@"-"];
+        time = [time substringToIndex:range.location];
+        date = [rawDate substringToIndex:range.location+2];
+        
+        releaseDate = [df dateFromString:[NSString stringWithFormat:@"%@ %@",date,time]];
+        
+        appImageName = [imageList[0] objectForKey	:@"label"];
+        appSmallImage =[HandleRemoteData getImageFromURL:appImageName];
+        [HandleRemoteData saveImage:appSmallImage withFileName:[NSString stringWithFormat:@"small-%@",identifier]];
+        
+        appImageName = [imageList[1] objectForKey:@"label"];
+        appMediumImage =[HandleRemoteData getImageFromURL:appImageName];
+        [HandleRemoteData saveImage:appMediumImage withFileName:[NSString stringWithFormat:@"medium-%@",identifier]];
+        //NSLog(@"URL %@ %@",name,appImageName);
+        
+        appImageName = [imageList[2] objectForKey:@"label"];
+        appBigImage =[HandleRemoteData getImageFromURL:appImageName];
+        [HandleRemoteData saveImage:appBigImage withFileName:[NSString stringWithFormat:@"big-%@",identifier]];
+        
+        app = [[App alloc] initWithName:name identifier:[nf numberFromString: identifier] category:category price:price link:url artist:artist title:title summary:description releaseDate:releaseDate smallImage:appSmallImage mediumImage:appMediumImage bigImage:appBigImage];
+        
+        [self addDifferent:_categoryList newValueForCheck:category];
+        [self.appList addObject:app];
+        
+        [AppEntity saveApp:app inManagedObjectContext:self.context];
+    }
+}
+
+-(void)loadLocalInfo
+{
+    App *app;
+    NSString *name;
+    NSString *description;
+    NSString *price;
+    NSString *category;
+    NSString *artist;
+    NSString *title;
+    NSURL *url;
+    NSDate *releaseDate;
+    
+    UIImage *appSmallImage;
+    UIImage *appMediumImage;
+    UIImage *appBigImage;
+    
+    NSArray *savedApps = [AppEntity listOfLocalApps:self.context];
+    for (AppEntity *savedApp in savedApps) {
+        
+        name = savedApp.name;
+        description = savedApp.summary;
+        price = savedApp.price;
+        category = savedApp.category;
+        artist = savedApp.artist;
+        title = savedApp.title;
+        url = [NSURL URLWithString:savedApp.link];
+        releaseDate = savedApp.releaseDate;
+        
+        appSmallImage = [HandleRemoteData loadImage:[NSString stringWithFormat:@"small-%@",savedApp.identifier]];
+        appMediumImage = [HandleRemoteData loadImage:[NSString stringWithFormat:@"medium-%@",savedApp.identifier]];
+        appBigImage = [HandleRemoteData loadImage:[NSString stringWithFormat:@"big-%@",savedApp.identifier]];
+        
+        app = [[App alloc] initWithName:name identifier:savedApp.identifier category:category price:price link:url artist:artist title:title summary:description releaseDate:releaseDate smallImage:appSmallImage mediumImage:appMediumImage bigImage:appBigImage];
+        
+        
+        [self.appList addObject:app];
+        [self addDifferent:_categoryList newValueForCheck:category];
+    }
+}
+
+#pragma mark - TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

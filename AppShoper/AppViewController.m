@@ -31,7 +31,7 @@
 }
 
 
-#pragma mark - Table Methods
+#pragma mark - TableView Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -62,13 +62,27 @@
     cell.imageView.bounds = CGRectMake(0.0, 0.0, 50.0, 50.0);
     cell.imageView.image = thisApp.smallImage;
     
+    //Animaciones para girar las imagenes
+    [UIView animateWithDuration:2 delay:0 options:( UIViewAnimationOptionCurveEaseInOut |
+                                                   UIViewAnimationOptionAutoreverse |
+                                                   UIViewAnimationOptionAllowUserInteraction) animations:^{
+        
+        cell.imageView.transform = CGAffineTransformRotate(cell.imageView.transform, M_PI);
+    } completion:^(BOOL finished){}];
+    [UIView animateWithDuration:2 delay:0 options:( UIViewAnimationOptionCurveEaseInOut |
+                                                   UIViewAnimationOptionAutoreverse |
+                                                   UIViewAnimationOptionAllowUserInteraction) animations:^{
+        
+        cell.imageView.transform = CGAffineTransformRotate(cell.imageView.transform, M_PI);
+    } completion:^(BOOL finished){}];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedApp = (App *)[self.appList objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"appDetail" sender:nil];    
+    [self performSegueWithIdentifier:@"appDetail" sender:nil];
+    //[self performSegueWithIdentifier:@"temp" sender:nil];
 }
 
 

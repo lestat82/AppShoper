@@ -19,5 +19,5 @@
 @dynamic summary;
 @dynamic title;
 @dynamic identifier;
-
+@dynamic releaseDate;
 @end

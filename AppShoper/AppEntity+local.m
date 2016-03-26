@@ -39,6 +39,8 @@
         myApp.artist =  app.artist;
         myApp.title = app.title;
         myApp.summary = app.summary;
+        myApp.releaseDate = app.releaseDate;
+        
     }
     [self forceSave:context];
     return myApp;
